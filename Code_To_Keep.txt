@@ -1,0 +1,27 @@
+Human neo = new Human();
+System.out.printf("Health: %d%n", neo.getHealth());
+System.out.printf("Strength: %d%n", neo.getStrength());
+System.out.printf("Dexterity: %d%n", neo.getDexterity());
+
+Sword sword = new Sword();
+System.out.printf("Damage Amount: %d%n", sword.getDamageAmount());
+System.out.printf("Dexterity Cost: %d%n", sword.getDeterityCost());
+
+public int strike(Warrior warrior, Weapon weapon, Armour armour, int attackType) {
+    int hitChance = 55;
+    int attackScalar = 5;
+    int damage = 0;
+    int roll = randNum.nextInt(100) + 1; // 1 - 100
+    int damageBonus = warrior.getStrength() / (randNum.nextInt(4) + 7) + (attackScalar * attackType); // BONUS to damage
+    hitChance -= warrior.getDexterity() / 10; // BONUS to hitChance
+    hitChance += armour.getDexterityCost() / 10; // COST to hitChance
+    hitChance += weapon.getDexterityCost() / 10; // COST to hitChance
+
+    if(roll >= hitChance) { // strike is a success!
+      damage = weapon.getDamageAmount() + damageBonus; // 50 + 17 = 67
+    }
+    else { // miss
+      damage = 0;
+    }
+    return damage;
+  } // strike()
